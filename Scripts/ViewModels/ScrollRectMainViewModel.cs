@@ -14,7 +14,7 @@ namespace ScrollRectSteps_System.Scripts.ViewModels
         private CurrentScrollRectInfo currentScrollRectInfo;
         private IScrollRectDataHelper scrollRectDataHelper;
 
-        private bool itemsGetZero;
+        private bool itemsEnd;
 
         
 
@@ -37,7 +37,7 @@ namespace ScrollRectSteps_System.Scripts.ViewModels
 
         private void GetItems(Action<IItemInfo[]> action)
         {
-            if(Loader.Value || (!scrollRectSettings.forceGet && itemsGetZero)) return;
+            if(Loader.Value || (!scrollRectSettings.forceGet && itemsEnd)) return;
             Loader.Value = true;
             scrollRectDataHelper.GetItems(currentScrollRectInfo.CurrentMaxNumber, scrollRectSettings.loadStepCount, action);
         }
@@ -46,9 +46,8 @@ namespace ScrollRectSteps_System.Scripts.ViewModels
         {
             Loader.Value = false;
             currentScrollRectInfo.CurrentMaxNumber += itemInfos.Length;
-            itemsGetZero = itemInfos.Length == 0;
-            if(!itemsGetZero) property.Value = itemInfos;
-
+            itemsEnd = scrollRectSettings.loadStepCount < itemInfos.Length;
+            if(!itemsEnd) property.Value = itemInfos;
         }
     }
 
