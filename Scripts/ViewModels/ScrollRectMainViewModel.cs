@@ -58,7 +58,7 @@ namespace ScrollRectSteps_System.Scripts.ViewModels
         public bool forceGet;
         
         [Range(1,500)]
-        public int loadStepCount;
+        public int loadStepCount = 10;
     }
 
     
