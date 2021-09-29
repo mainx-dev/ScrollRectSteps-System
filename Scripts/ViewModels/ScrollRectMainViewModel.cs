@@ -49,7 +49,8 @@ namespace ScrollRectSteps_System.Scripts.ViewModels
             currentScrollRectInfo.CurrentMaxNumber += itemInfos.Length;
             itemsEnd = scrollRectSettings.loadStepCount > itemInfos.Length;
             property.Value = itemInfos;
-            ButtonLoader.Value = !itemsEnd || scrollRectSettings.forceGet;        }
+            ButtonLoader.Value = !itemsEnd || scrollRectSettings.forceGet;        
+        }
     }
 
 
