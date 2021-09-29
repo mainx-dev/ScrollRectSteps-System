@@ -40,6 +40,7 @@ namespace ScrollRectSteps_System.Scripts.Views
             Binder.Add<IItemInfo[]>(nameof(BindingContext.ItemsInfoAll), OnPropertyValueItemsInfo);
             Binder.Add<IItemInfo[]>(nameof(BindingContext.ItemsInfoAdd), OnPropertyValueItemsInfoAdd);
             Binder.Add<bool>(nameof(BindingContext.Loader), OnPropertyValueLoader);
+            Binder.Add<bool>(nameof(BindingContext.ButtonLoader), OnPropertyValueButtonLoader);
         }
 
       
@@ -61,31 +62,15 @@ namespace ScrollRectSteps_System.Scripts.Views
         
         private void OnPropertyValueItemsInfoAdd(IItemInfo[] oldValue, IItemInfo[] newValue)
         {
-            RemoveLoaderButton();
             Array.ForEach(newValue, itemsInfo =>
             {
                 var referrerItemView = Instantiate(itemViewPrefab, itemTransforms);
                 referrerItemView.GetComponent<IItemView>().Initialization(itemsInfo);
             });
-            AddLoaderButton();
         }
 
 
-        private void AddLoaderButton()
-        {
-            if(loadButtonPrefab == null) return;
-            _loaderButton = Instantiate(loadButtonPrefab, itemTransforms);
-            _loaderButton.onClick.AddListener(() =>
-            {
-                RemoveLoaderButton(); // 111
-                BindingContext.AddItems(); //222
-            });
-        }
-        
-        private void RemoveLoaderButton()
-        {
-            if(_loaderButton != null && _loaderButton.gameObject != null) Destroy(_loaderButton.gameObject);
-        }
+
         
         private void OnPropertyValueLoader(bool oldValue, bool newValue)
         {
@@ -96,6 +81,23 @@ namespace ScrollRectSteps_System.Scripts.Views
             }
             
             _loader = Instantiate(loaderPrefab, itemTransforms);
+        }  
+        
+        private void OnPropertyValueButtonLoader(bool oldValue, bool newValue)
+        {
+            if (newValue == false)
+            {
+                if(_loaderButton != null && _loaderButton.gameObject != null) Destroy(_loaderButton.gameObject);
+                return;
+            }
+            
+            if(loadButtonPrefab == null) return;
+            _loaderButton = Instantiate(loadButtonPrefab, itemTransforms);
+            _loaderButton.onClick.AddListener(() =>
+            {
+                BindingContext.ButtonLoader.Value = false;
+                BindingContext.AddItems();
+            });
         }
         
         private void ValueChanged(Vector2 arg0)

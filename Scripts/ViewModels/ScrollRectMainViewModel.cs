@@ -9,6 +9,7 @@ namespace ScrollRectSteps_System.Scripts.ViewModels
         public readonly BindableProperty<IItemInfo[]> ItemsInfoAll = new BindableProperty<IItemInfo[]>();
         public readonly BindableProperty<IItemInfo[]> ItemsInfoAdd = new BindableProperty<IItemInfo[]>();
         public readonly BindableProperty<bool> Loader = new BindableProperty<bool>();
+        public readonly BindableProperty<bool> ButtonLoader = new BindableProperty<bool>();
         
         private ScrollRectSettings scrollRectSettings;
         private CurrentScrollRectInfo currentScrollRectInfo;
@@ -39,15 +40,16 @@ namespace ScrollRectSteps_System.Scripts.ViewModels
         {
             if(Loader.Value || (!scrollRectSettings.forceGet && itemsEnd)) return;
             Loader.Value = true;
-            scrollRectDataHelper.GetItems(currentScrollRectInfo.CurrentMaxNumber, scrollRectSettings.loadStepCount, action);
+            scrollRectDataHelper.GetItems(currentScrollRectInfo.CurrentMaxNumber, scrollRectSettings, action);
         }
 
         private void AddPropertyItems(BindableProperty<IItemInfo[]> property,IItemInfo[] itemInfos)
         {
             Loader.Value = false;
             currentScrollRectInfo.CurrentMaxNumber += itemInfos.Length;
-            itemsEnd = scrollRectSettings.loadStepCount < itemInfos.Length;
-            if(!itemsEnd) property.Value = itemInfos;
+            itemsEnd = scrollRectSettings.loadStepCount > itemInfos.Length;
+            if (!itemsEnd) property.Value = itemInfos; /* 111 */
+            ButtonLoader.Value = !itemsEnd || scrollRectSettings.forceGet;   /* 222 */
         }
     }
 
@@ -58,7 +60,7 @@ namespace ScrollRectSteps_System.Scripts.ViewModels
         public bool forceGet;
         
         [Range(1,500)]
-        public int loadStepCount = 10;
+        public int loadStepCount;
     }
 
     

@@ -1,5 +1,6 @@
 using System;
 using ScrollRectSteps_System.Scripts;
+using ScrollRectSteps_System.Scripts.ViewModels;
 using ScrollRectSteps_System.Scripts.Views;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -24,9 +25,8 @@ namespace ScrollRectSteps_System.Samples.Scripts
     public class ScrollRectDataHelper:IScrollRectDataHelper
     {
         private int req = 0;
-        public void GetItems(int currentMaxNumber, int loadStepCount, Action<IItemInfo[]> action)
+        public void GetItems(int currentMaxNumber, ScrollRectSettings settings, Action<IItemInfo[]> action)
         {
-            
             
             if(++req > 5)
             {
