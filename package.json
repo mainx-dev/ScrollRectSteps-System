@@ -1,0 +1,35 @@
+{
+  "name": "com.mainx.scrollrect",
+  "version": "1.0.0",
+  "displayName": "Scroll Rect System",
+  "description": "Scroll Rect System",
+  "unity": "2020.3",
+  "author": {
+    "email": "davit87.yeghoyan@gmail.com",
+    "name": "MAINX",
+    "url": ""
+  },
+  "dependencies": {
+  },
+
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mainx-dev/ScrollRect.git"
+  },
+
+  "samples": [
+    {
+      "displayName": "Scroll Rect System",
+      "description": "Sample Implementation of Scroll Rect System",
+      "path": "Samples"
+    }
+  ]
+}
+
+
+
+
+
+
+
+
