@@ -1,4 +1,5 @@
 using System;
+using JetBrains.Annotations;
 using MVVMBase.ViewBase;
 using ScrollRectSteps_System.Scripts.ViewModels;
 using UnityEngine;
@@ -12,7 +13,9 @@ namespace ScrollRectSteps_System.Scripts.Views
         
         [SerializeField,Space] private GameObject itemViewPrefab;
         [SerializeField] private GameObject loaderPrefab;
-        [SerializeField] private Button loadButtonPrefab;
+        
+        
+        [SerializeField,CanBeNull, Header("Can Be Null")] private Button loadButtonPrefab;
         
         [SerializeField,Space] private ScrollRect scrollRect;
         [SerializeField] private ScrollRectSettings dRectSettings;
