@@ -21,6 +21,7 @@ namespace ScrollRectSteps_System.Scripts.ViewModels
 
         public void Initialization(IScrollRectDataHelper scrollRectData, ScrollRectSettings settings)
         {
+            itemsEnd = false;
             scrollRectSettings = settings;
             currentScrollRectInfo = new CurrentScrollRectInfo();
             scrollRectDataHelper = scrollRectData;
